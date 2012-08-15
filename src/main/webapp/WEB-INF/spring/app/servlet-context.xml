@@ -15,6 +15,9 @@
 
 	<!-- special static pages -->
 	<resources mapping="/ok.htm" location="/statics/ok.htm" />
+	<resources mapping="/css/**" location="/statics/css/" />
+	<resources mapping="/js/**" location="/statics/js/" />
+	<resources mapping="/img/**" location="/statics/img/" />
 
 
 

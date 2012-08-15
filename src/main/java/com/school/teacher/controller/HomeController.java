@@ -28,12 +28,11 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
 	
+
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(HttpServletRequest request, ModelAndView mav){
 		mav.setViewName("home");
-		
-		mav.addObject("testValue", "这个夏天很热！！");
-		
 		logger.error("this is a test");		
 		return mav;
 		
