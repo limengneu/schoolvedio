@@ -16,7 +16,6 @@ import javax.persistence.Entity;
 import javax.persistence.PostLoad;
 import javax.persistence.Transient;
 
-import com.school.biz.thrid.model.SuccessVedio;
 import com.school.common.utils.StringCollectionUtils;
 
 
@@ -35,7 +34,7 @@ public class Vedio extends BaseModel {
 	@Column
 	private String title;
 	@Column
-	private String type;
+	private String result;
 	@Column
 	private String tags;
 	@Column
@@ -50,6 +49,9 @@ public class Vedio extends BaseModel {
 	private String vid;
 	@Column
 	private String vpublic;
+	
+	@Column
+	private String  attach;
 
 
 	@Transient
@@ -60,17 +62,7 @@ public class Vedio extends BaseModel {
 		tagsList = new ArrayList<String>();
 	}
 	
-	public Vedio(SuccessVedio successVedio) {
-		this.title=successVedio.getSubject();
-		this.author=successVedio.getSid();
-		this.path=successVedio.getPlayer();
-		this.image=successVedio.getCover();
-		this.type=successVedio.getChk();
-		this.status=successVedio.getResult();
-		this.summary=successVedio.getAttach();
-		this.vid=successVedio.getVid();
-		this.vpublic=successVedio.getCoop_public();
-	}
+
 	
 	
 	@PostLoad
@@ -122,20 +114,26 @@ public class Vedio extends BaseModel {
 		this.title = title;
 	}
 
-	/**
-	 * @return the type
-	 */
-	public String getType() {
-		return type;
-	}
 
 	/**
-	 * @param type
-	 *            the type to set
+	 * @return the result
 	 */
-	public void setType(String type) {
-		this.type = type;
+	public String getResult() {
+		return result;
 	}
+
+
+
+
+	/**
+	 * @param result the result to set
+	 */
+	public void setResult(String result) {
+		this.result = result;
+	}
+
+
+
 
 	/**
 	 * @return the tags
@@ -237,6 +235,26 @@ public class Vedio extends BaseModel {
 	 */
 	public void setVpublic(String vpublic) {
 		this.vpublic = vpublic;
+	}
+
+
+
+
+	/**
+	 * @return the attach
+	 */
+	public String getAttach() {
+		return attach;
+	}
+
+
+
+
+	/**
+	 * @param attach the attach to set
+	 */
+	public void setAttach(String attach) {
+		this.attach = attach;
 	}
 	
 	

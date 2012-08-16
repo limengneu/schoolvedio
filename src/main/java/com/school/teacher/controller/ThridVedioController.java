@@ -8,10 +8,12 @@
  */
 package com.school.teacher.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import com.school.biz.model.Vedio;
 import com.school.biz.service.VedioService;
 import com.school.biz.thrid.ThridVedioService;
 import com.school.biz.thrid.model.SuccessVedio;
+import com.school.biz.thrid.util.VedioUploadConstans;
 
 /**
  * @描述：
@@ -57,14 +60,40 @@ public class ThridVedioController {
 	@RequestMapping(value = "sucess", method = RequestMethod.GET)
 	public ModelAndView sucess(HttpServletRequest request, ModelAndView mav){
 		mav.setViewName("/vedio/sucess");
-		Gson gson=new Gson();
-		logger.error("the QueryString is: "+request.getQueryString());
-		SuccessVedio successVedio=gson.fromJson(request.getQueryString(), SuccessVedio.class);
-		vedioService.saveVedio(new Vedio(successVedio));
-		mav.addObject("successVedio", successVedio);
+		String queryString=request.getQueryString();
+		Vedio vedio=buildVeido(queryString);
+		vedioService.saveVedio(vedio);
+		mav.addObject("successVedio", vedio);
 		return mav;
 	}
 	
+	/**
+	 * @方法功能说明：
+	 * @修改者名字: limeng
+	 * @修改时间：Aug 16, 20126:31:52 PM
+	 * @参数：@param queryString
+	 * @参数：@return
+	 * @return:Vedio
+	 */
+	private Vedio buildVeido(String queryString) {
+		Vedio vedio=new Vedio();
+		String[] obejctStr=queryString.split("&");
+		Map<String,String> obejctMap=new HashMap<String,String>();
+		for(int index=0;index<obejctStr.length;index++){
+		String[] restStr=obejctStr[index].split("=");
+		obejctMap.put(restStr[0], restStr[1]);
+		}
+		vedio.setAttach(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_ATTACH));
+		vedio.setAuthor(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_SID));
+		vedio.setImage(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_COVER));
+		vedio.setResult(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_RESULT));
+		vedio.setPath(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_PLAYER));
+		vedio.setTitle(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_SUBJECT));
+		vedio.setVid(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_VID));
+		vedio.setVpublic(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_COOP_PUBLIC));
+		return vedio;
+	}
+
 	@RequestMapping(value = "fail", method = RequestMethod.GET)
 	public ModelAndView fail(HttpServletRequest request, ModelAndView mav){
 		mav.setViewName("/vedio/fail");

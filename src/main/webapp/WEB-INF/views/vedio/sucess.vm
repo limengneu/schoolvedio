@@ -9,10 +9,10 @@
       </div>
       <!-- Example row of columns -->
       <div class="row">
-	subject:	${successVedio.subject}</br>
+	subject:	${successVedio.title}</br>
 	result: 	${successVedio.result}</br>
-	player: 	${successVedio.player}</br>
-	cover:  	${successVedio.cover}</br>
-	attach: 	${successVedio.attach}</br>
+	path: 	${successVedio.path}</br>
+	image:  	${successVedio.image}</br>
+	
       </div>
 </div>
