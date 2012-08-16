@@ -57,7 +57,7 @@ public class ThridVedioController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "sucess", method = RequestMethod.GET)
+	@RequestMapping(value = "/vedio/sucess", method = RequestMethod.GET)
 	public ModelAndView sucess(HttpServletRequest request, ModelAndView mav){
 		
 		mav.setViewName("/vedio/sucess");
