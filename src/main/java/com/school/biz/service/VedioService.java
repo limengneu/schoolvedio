@@ -43,7 +43,7 @@ public class VedioService {
 	
 	
 	public Vedio findVedioById(Integer vedioId){
-		return  vedioDao.find(Long.valueOf(vedioId));
+		return  vedioDao.find(vedioId);
 	}
 	
 	public List<Vedio> findVedios(String column,String value){

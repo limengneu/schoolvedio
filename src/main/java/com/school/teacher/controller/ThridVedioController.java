@@ -61,12 +61,15 @@ public class ThridVedioController {
 	public ModelAndView sucess(HttpServletRequest request, ModelAndView mav){
 		
 		mav.setViewName("/vedio/sucess");
-
+		try {
 		String queryString=request.getQueryString();
 		Vedio vedio=buildVeido(queryString);
 		vedioService.saveVedio(vedio);
 		
 		mav.addObject("successVedio", vedio);
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+		}
 		
 		return mav;
 	}
@@ -100,11 +103,11 @@ public class ThridVedioController {
 		try {
 			vedio.setImage(URLDecoder.decode(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_COVER),"UTF-8"));
 			vedio.setPath(URLDecoder.decode(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_PLAYER),"UTF-8"));
+			vedio.setTitle(URLDecoder.decode(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_SUBJECT),"UTF-8"));
 		} catch (UnsupportedEncodingException e) {
 			logger.error(e.getMessage(),e);
 		}
 		vedio.setResult(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_RESULT));
-		vedio.setTitle(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_SUBJECT));
 		vedio.setVid(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_VID));
 		vedio.setVpublic(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_COOP_PUBLIC));
 		return vedio;

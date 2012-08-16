@@ -52,7 +52,7 @@ public abstract class BaseDao<T extends BaseModel> {
 
 	}
 	
-	public T find(Long id) {
+	public T find(Integer id) {
 		return em.find(entityClass, id);
 	}
 	

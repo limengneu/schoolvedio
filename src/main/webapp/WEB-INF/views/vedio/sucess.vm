@@ -1,10 +1,14 @@
 #set($layout="ignoreLayout")
-<link rel="stylesheet" href="/css/bootstrap.min.css"></link>
-<link rel="stylesheet" href="/css/bootstrap-responsive.min.css"></link>
+	<link rel="stylesheet" href="/css/bootstrap-responsive.min.css"></link>
+	<link rel="stylesheet" href="/css/bootstrap.min.css"></link>
+
+
  <div class="container">
       <!-- Main hero unit for a primary marketing message or call to action -->
-	  <div class="hero-unit">
-        <h2> 视频<a herf="/vedio/${successVedio.id}" target="_blank"> ${successVedio.title}</a> 点击播放</h2>
+	  <div class="hero-unit">  
+        <h2> <a href="/vedio/${successVedio.id}" target="_blank"> ${successVedio.title} </a> 点击播放 </h2>
      </div>
       <!-- Example row of columns -->
+	
 </div>
+	
