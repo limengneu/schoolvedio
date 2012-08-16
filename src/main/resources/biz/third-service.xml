@@ -26,11 +26,10 @@
 		<property name="appkey" value="3000000224" />
 		<property name="secret" value="b885ea102ec7547a" />
 		<property name="css" value="cDElM0RwMSUyNnAyJTNEcDIlMjZvbiUzRG9uJTI2b24lM0RvbiUyNm9uJTNEb24lMjZwbyUzRHBvJTI2bCUzRGNuJTI2YyUzRHAxMSUyNmklM0Qx" />
-		<property name="ourl" value="b885ea102ec7547a" />
-		<property name="rurl" value="3000000224" />
+		<property name="ourl" value="http://115.238.73.23:8162/vedio/sucess" />
+		<property name="rurl" value="http://115.238.73.23:8162/vedio/fail" />
 		<property name="vedioPublic" value="n" />
 		<property name="uploadUrl" value="http://oapi.56.com/video/custom.plugin" />
-		<property name="httpClient" ref="httpClient" />
 	</bean>
 	
 </beans>

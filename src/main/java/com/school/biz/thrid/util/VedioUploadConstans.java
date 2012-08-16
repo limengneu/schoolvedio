@@ -30,6 +30,8 @@ public class VedioUploadConstans {
 	 
 	 public static final String  VEDIO_SIGN="sign";
 	 
+	 public static final String  VEDIO_TS="ts";
+	 
 	 public static final String VEDIO_SID="sid";
 	 
 

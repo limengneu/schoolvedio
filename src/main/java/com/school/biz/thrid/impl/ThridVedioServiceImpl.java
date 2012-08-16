@@ -9,7 +9,9 @@
 package com.school.biz.thrid.impl;
 
 import java.net.HttpURLConnection;
+import java.net.URLEncoder;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -19,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import com.school.biz.thrid.ThridVedioService;
 import com.school.biz.thrid.util.VedioUploadConstans;
-import com.school.common.utils.DigestUtils;
+
 
 /**
  * @描述：
@@ -45,7 +47,7 @@ public class ThridVedioServiceImpl implements ThridVedioService {
 	
 	private String uploadUrl;
 	
-	private HttpClient httpClient;
+
 
 	/*
 	 * (non-Javadoc)
@@ -54,66 +56,60 @@ public class ThridVedioServiceImpl implements ThridVedioService {
 	 */
 	public String uploadVedio(String user) {
 		
-		String urlParam=buildUrlPrama(user);
-		
-		GetMethod getmethod = new GetMethod(uploadUrl+"?"+urlParam);
-		return httpRequest(getmethod);
-	}
-
-	
-	private String httpRequest(HttpMethod method) {
-		int responseCode = -1;
+		String urlParam=null;
 		try {
-			httpClient.executeMethod(method);
-			responseCode = method.getStatusCode();
-			if (responseCode != HttpURLConnection.HTTP_OK) {
-				logger.error("http client error the responseCode is :"
-						+ responseCode);
-			}
-			return method.getResponseBodyAsString();
-		} catch (Exception ioe) {
-			logger.error("http exception", ioe);
-		} finally {
-			method.releaseConnection();
+			urlParam = buildUrlPrama(user);
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
 		}
-		return  null;
-
+		
+		return uploadUrl+"?"+urlParam;
 	}
+
+
 	/**
 	 * @方法功能说明：
 	 * @修改者名字: limeng
 	 * @修改时间：Aug 15, 20128:48:46 PM
 	 * @参数：@param sid
 	 * @return:void
+	 * @throws Exception 
 	 */
-	private String buildUrlPrama(String sid) {
-		String sign=buildSign(getTsString());
+	private String buildUrlPrama(String sid) throws Exception {
+		String ts=getTsString();
+	
 		StringBuilder param=new StringBuilder();
-		param.append(VedioUploadConstans.VEDIO_APPKEY);param.append("=");param.append(appkey);
+		param.append(VedioUploadConstans.VEDIO_APPKEY);param.append("=");param.append(URLEncoder.encode(appkey, "UTF-8"));
 		param.append("&");
-		param.append(VedioUploadConstans.VEDIO_SECRET);param.append("=");param.append(secret);
+//		param.append(VedioUploadConstans.VEDIO_SECRET);param.append("=");param.append(URLEncoder.encode(secret, "UTF-8"));
+//		param.append("&");
+		param.append(VedioUploadConstans.VEDIO_TS);param.append("=");param.append(URLEncoder.encode(ts, "UTF-8"));
 		param.append("&");
-		param.append(VedioUploadConstans.VEDIO_CSS);param.append("=");param.append(css);
+		StringBuilder sortparam=new StringBuilder();
+		sortparam.append(VedioUploadConstans.VEDIO_CSS);sortparam.append("=");sortparam.append(URLEncoder.encode(css, "UTF-8"));
+		sortparam.append("&");
+		sortparam.append(VedioUploadConstans.VEDIO_OURL);sortparam.append("=");sortparam.append(URLEncoder.encode(ourl, "UTF-8"));
+		sortparam.append("&");
+		sortparam.append(VedioUploadConstans.VEDIO_PUBLIC);sortparam.append("=");sortparam.append(URLEncoder.encode(vedioPublic, "UTF-8"));
+		sortparam.append("&");
+		sortparam.append(VedioUploadConstans.VEDIO_RURL);sortparam.append("=");sortparam.append(URLEncoder.encode(rurl, "UTF-8"));
+		sortparam.append("&");
+		sortparam.append(VedioUploadConstans.VEDIO_SID);sortparam.append("=");sortparam.append(URLEncoder.encode(sid, "UTF-8"));
+		String sign=buildSign(sortparam.toString(),ts);
+		param.append(sortparam);
 		param.append("&");
-		param.append(VedioUploadConstans.VEDIO_OURL);param.append("=");param.append(ourl);
-		param.append("&");
-		param.append(VedioUploadConstans.VEDIO_RURL);param.append("=");param.append(rurl);
-		param.append("&");
-		param.append(VedioUploadConstans.VEDIO_PUBLIC);param.append("=");param.append(vedioPublic);
-		param.append("&");
-		param.append(VedioUploadConstans.VEDIO_SID);param.append("=");param.append(sid);
-		param.append("&");
-		param.append(VedioUploadConstans.VEDIO_SIGN);param.append("=");param.append(sign);
+		param.append(VedioUploadConstans.VEDIO_SIGN);param.append("=");param.append(URLEncoder.encode(sign, "UTF-8"));
+		
 		return param.toString();
 	}
 
-	private String buildSign(String ts) {
+	private String buildSign(String orderparam,String ts) {
 
-		String req = DigestUtils.Md5Encrypt("");
+		String req = DigestUtils.md5Hex(orderparam);
 
 		String secendDigest = req + "#" + appkey + "#" + secret + "#" + ts;
 
-		return DigestUtils.Md5Encrypt(secendDigest);
+		return DigestUtils.md5Hex(secendDigest);
 
 	}
 
@@ -178,20 +174,6 @@ public class ThridVedioServiceImpl implements ThridVedioService {
 		this.uploadUrl = uploadUrl;
 	}
 
-	/**
-	 * @return the httpClient
-	 */
-	public HttpClient getHttpClient() {
-		return httpClient;
-	}
-
-	/**
-	 * @param httpClient the httpClient to set
-	 */
-	public void setHttpClient(HttpClient httpClient) {
-		this.httpClient = httpClient;
-	}
-	
 	
 
 }
