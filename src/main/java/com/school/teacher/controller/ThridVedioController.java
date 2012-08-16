@@ -74,7 +74,8 @@ public class ThridVedioController {
 	@RequestMapping( method = RequestMethod.GET,value = UrlPatternConsts.VEDIO_VIEW)
 	public ModelAndView view(HttpServletRequest request, ModelAndView mav,@PathVariable Integer vedioId){
 		mav.setViewName("/vedio/view");
-
+		Vedio vedio=vedioService.findVedioById(vedioId);
+		mav.addObject("vedio",vedio);
 		return mav;
 	}
 	
