@@ -1,0 +1,9 @@
+ <div class="container">
+      <!-- Main hero unit for a primary marketing message or call to action -->
+	  <div class="hero-unit">
+		
+        <h2>${successVedio.title}</h2>
+		<embed src='${successVedio.path}' type='application/x-shockwave-flash' allowFullScreen='true' width='100%' height='100%' allowNetworking='all' wmode='opaque' allowScriptAccess='always'></embed>
+      </div>
+      <!-- Example row of columns -->
+</div>

@@ -8,26 +8,27 @@
  */
 package com.school.teacher.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 import com.school.biz.model.Vedio;
 import com.school.biz.service.VedioService;
 import com.school.biz.thrid.ThridVedioService;
-import com.school.biz.thrid.model.SuccessVedio;
 import com.school.biz.thrid.util.VedioUploadConstans;
+import com.school.teacher.utils.UrlPatternConsts;
 
 /**
  * @描述：
@@ -36,7 +37,6 @@ import com.school.biz.thrid.util.VedioUploadConstans;
  * @创建时间：Aug 15, 20129:13:27 PM
  */
 @Controller
-@RequestMapping("/vedio/")
 public class ThridVedioController {
 	
 	private static final Logger logger = LoggerFactory
@@ -48,7 +48,7 @@ public class ThridVedioController {
 	@Autowired
 	private VedioService vedioService;
 	
-	@RequestMapping(value = "upload", method = RequestMethod.GET)
+	@RequestMapping(value = "/vedio/upload", method = RequestMethod.GET)
 	public ModelAndView upload(HttpServletRequest request, ModelAndView mav){
 		mav.setViewName("/vedio/upload");
 		String result= thridVedioService.uploadVedio("home");
@@ -59,11 +59,22 @@ public class ThridVedioController {
 	
 	@RequestMapping(value = "sucess", method = RequestMethod.GET)
 	public ModelAndView sucess(HttpServletRequest request, ModelAndView mav){
+		
 		mav.setViewName("/vedio/sucess");
+
 		String queryString=request.getQueryString();
 		Vedio vedio=buildVeido(queryString);
 		vedioService.saveVedio(vedio);
+		
 		mav.addObject("successVedio", vedio);
+		
+		return mav;
+	}
+	
+	@RequestMapping( method = RequestMethod.GET,value = UrlPatternConsts.VEDIO_VIEW)
+	public ModelAndView view(HttpServletRequest request, ModelAndView mav,@PathVariable Integer vedioId){
+		mav.setViewName("/vedio/view");
+
 		return mav;
 	}
 	
@@ -85,16 +96,20 @@ public class ThridVedioController {
 		}
 		vedio.setAttach(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_ATTACH));
 		vedio.setAuthor(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_SID));
-		vedio.setImage(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_COVER));
+		try {
+			vedio.setImage(URLDecoder.decode(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_COVER),"UTF-8"));
+			vedio.setPath(URLDecoder.decode(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_PLAYER),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			logger.error(e.getMessage(),e);
+		}
 		vedio.setResult(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_RESULT));
-		vedio.setPath(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_PLAYER));
 		vedio.setTitle(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_SUBJECT));
 		vedio.setVid(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_VID));
 		vedio.setVpublic(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_COOP_PUBLIC));
 		return vedio;
 	}
 
-	@RequestMapping(value = "fail", method = RequestMethod.GET)
+	@RequestMapping(value = "/vedio/fail", method = RequestMethod.GET)
 	public ModelAndView fail(HttpServletRequest request, ModelAndView mav){
 		mav.setViewName("/vedio/fail");
 		String  requestParams = request.getQueryString();

@@ -8,13 +8,9 @@
  */
 package com.school.biz.thrid.impl;
 
-import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
