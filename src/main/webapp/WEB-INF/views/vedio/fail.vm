@@ -1,7 +1,7 @@
  <div class="container">
       <!-- Main hero unit for a primary marketing message or call to action -->
 	  <div class="hero-unit">
-		 <embed src='http://player.56.com/3000000224/open_NjQzNTcxMDA.swf' type='application/x-shockwave-flash' allowFullScreen='true' width='100%' height='100%' allowNetworking='all' wmode='opaque' allowScriptAccess='always'></embed>
-        <h1>Upload, Fail!</h1>
+		 
+        <h1>Upload, Fail! $queryString</h1>
       </div>
 </div>
