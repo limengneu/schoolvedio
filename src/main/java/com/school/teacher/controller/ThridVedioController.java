@@ -112,6 +112,7 @@ public class ThridVedioController {
 		} catch (UnsupportedEncodingException e) {
 			logger.error(e.getMessage(),e);
 		}
+		vedio.setStatus("s");
 		vedio.setResult(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_RESULT));
 		vedio.setVid(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_VID));
 		vedio.setVpublic(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_COOP_PUBLIC));

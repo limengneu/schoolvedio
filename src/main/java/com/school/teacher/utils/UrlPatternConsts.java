@@ -17,5 +17,7 @@ package com.school.teacher.utils;
 public class UrlPatternConsts {
 	
 	public static final String VEDIO_VIEW = "/vedio/{vedioId}";
+	
+	public static final String VEDIO_List = "/vedios/{page}";
 
 }

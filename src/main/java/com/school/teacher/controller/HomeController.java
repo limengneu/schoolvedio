@@ -12,10 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.school.biz.query.VedioQuery;
+import com.school.biz.service.VedioService;
+import com.school.common.paginator.Paginator;
+import com.school.common.paginator.PaginatorConstants;
+import com.school.teacher.utils.UrlPatternConsts;
 
 /**
  * @描述：
@@ -25,17 +33,29 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class HomeController {
-	private static final Logger logger = LoggerFactory
-			.getLogger(HomeController.class);
 	
 
+	@Autowired
+	private VedioService vedioService;
+	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(HttpServletRequest request, ModelAndView mav){
 		mav.setViewName("home");
-		logger.error("this is a test");		
+	
 		return mav;
+	}
+
+	@RequestMapping(value = UrlPatternConsts.VEDIO_List, method = RequestMethod.GET)
+	public ModelAndView vedioList(HttpServletRequest request, ModelAndView mav,@PathVariable Integer page){
+		mav.setViewName("home");
+		VedioQuery vedioQuery=vedioService.findListByPage("status","s",page, PaginatorConstants.DEFAULT_PAGE_SIZE);
+	
+		Paginator paginator=new Paginator(UrlPatternConsts.VEDIO_List,page,PaginatorConstants.DEFAULT_PAGE_SIZE,vedioQuery.getSize());
 		
+		mav.addObject("paginator", paginator);
+		mav.addObject("vedios", vedioQuery.getVedios());
+		return mav;
 	}
 
 }

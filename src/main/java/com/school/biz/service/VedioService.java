@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.school.biz.dao.VedioDao;
 import com.school.biz.model.Vedio;
+import com.school.biz.query.VedioQuery;
 
 /**
  * @描述：
@@ -49,5 +50,14 @@ public class VedioService {
 	public List<Vedio> findVedios(String column,String value){
 		return  vedioDao.findListByValue(column, value);
 	}
+	
+	public VedioQuery findListByPage(String column,String value,Integer page,Integer pageSize){
+		
+		List<Vedio>  vedios=vedioDao.findListByPage(column, value,page,pageSize);
+		Integer size=vedioDao.countByPage(column, value);
+		VedioQuery vedioQuery=new VedioQuery(vedios,size);
+		 return vedioQuery;
+	}
+	
 
 }
