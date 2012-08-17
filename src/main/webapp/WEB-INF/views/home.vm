@@ -8,7 +8,7 @@
   #foreach($vedio in $vedios)
   <li class="span3">
     <div class="thumbnail">
-      <img src="$vedio.image" width='260px' height='180px' alt="">
+      <a href="/vedio/${vedio.id}"><img src="$vedio.image" width='260px' height='180px'></a>
       <h5>${vedio.title}</h5>
       <p>${vedio.summary}</p>
     </div>
