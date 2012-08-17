@@ -16,7 +16,7 @@
 	
 	<!-- Appenders -->
 	<appender name="errorlog" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="/home/limeng/logs/teacher/error.log" />
+		<param name="File" value="../../logs/teacher/error.log" />
 		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="1024KB" />
 		<param name="MaxBackupIndex " value="10000" />
@@ -31,7 +31,7 @@
 
 	<!-- Appenders -->
 	<appender name="sqllog" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="/home/limeng/logs/teacher/sql.log" />
+		<param name="File" value="../../logs/teacher/sql.log" />
 		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="1024KB" />
 		<param name="MaxBackupIndex " value="10000" />
