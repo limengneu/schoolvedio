@@ -42,6 +42,8 @@ public class Vedio extends BaseModel {
 	@Column
 	private String path;
 	@Column
+	private String realPath;
+	@Column
 	private String image;
 	@Column
 	private String status;
@@ -235,6 +237,26 @@ public class Vedio extends BaseModel {
 	 */
 	public void setVpublic(String vpublic) {
 		this.vpublic = vpublic;
+	}
+
+
+
+
+	/**
+	 * @return the realPath
+	 */
+	public String getRealPath() {
+		return realPath;
+	}
+
+
+
+
+	/**
+	 * @param realPath the realPath to set
+	 */
+	public void setRealPath(String realPath) {
+		this.realPath = realPath;
 	}
 
 

@@ -15,6 +15,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,9 +102,13 @@ public class ThridVedioController {
 		vedio.setAttach(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_ATTACH));
 		vedio.setAuthor(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_SID));
 		try {
-			vedio.setImage(URLDecoder.decode(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_COVER),"UTF-8"));
-			vedio.setPath(URLDecoder.decode(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_PLAYER),"UTF-8"));
-			vedio.setTitle(URLDecoder.decode(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_SUBJECT),"UTF-8"));
+			vedio.setImage(URLDecoder.decode(URLDecoder.decode(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_COVER),"UTF-8"),"UTF-8"));
+			String player=obejctMap.get(VedioUploadConstans.RESULT_VEDIO_PLAYER);
+			vedio.setPath(URLDecoder.decode(URLDecoder.decode(player,"UTF-8"),"UTF-8"));
+			String realPath=StringUtils.substringAfter(player, "v_");
+			realPath="open_"+realPath;
+			vedio.setRealPath(realPath);
+			vedio.setTitle(URLDecoder.decode(URLDecoder.decode(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_SUBJECT),"UTF-8"),"UTF-8"));
 		} catch (UnsupportedEncodingException e) {
 			logger.error(e.getMessage(),e);
 		}
