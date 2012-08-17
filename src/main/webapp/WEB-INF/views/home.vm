@@ -2,18 +2,23 @@
       <!-- Main hero unit for a primary marketing message or call to action -->
 
         <p><a class="btn btn-primary btn-large" href="/vedio/upload">Upload Vedio </a></p>
-
-
+ <div class="row">
+	<div class="span6">
 <ul class="thumbnails">
+	
   #foreach($vedio in $vedios)
+
   <li class="span3">
     <div class="thumbnail">
-      <a href="/vedio/${vedio.id}"><img src="$vedio.image" width='260px' height='180px'></a>
+      <a href="/vedio/${vedio.id}"><img src="$vedio.image" width='200px' height='180px'></a>
       <h5>${vedio.title}</h5>
       <p>${vedio.summary}</p>
     </div>
   </li>
+
   #end
-</ul>
+  </ul>
+  </div>
+  </div>
       <!-- Example row of columns -->
 </div>

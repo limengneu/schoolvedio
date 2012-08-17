@@ -42,6 +42,12 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(HttpServletRequest request, ModelAndView mav){
 		mav.setViewName("home");
+		VedioQuery vedioQuery=vedioService.findListByPage("status","s",1, PaginatorConstants.DEFAULT_PAGE_SIZE);
+		
+		Paginator paginator=new Paginator(UrlPatternConsts.VEDIO_List,1,PaginatorConstants.DEFAULT_PAGE_SIZE,vedioQuery.getSize());
+		
+		mav.addObject("paginator", paginator);
+		mav.addObject("vedios", vedioQuery.getVedios());
 	
 		return mav;
 	}

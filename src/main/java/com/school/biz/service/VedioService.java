@@ -54,8 +54,8 @@ public class VedioService {
 	public VedioQuery findListByPage(String column,String value,Integer page,Integer pageSize){
 		
 		List<Vedio>  vedios=vedioDao.findListByPage(column, value,page,pageSize);
-		Integer size=vedioDao.countByPage(column, value);
-		VedioQuery vedioQuery=new VedioQuery(vedios,size);
+		Long size=vedioDao.countByPage(column, value);
+		VedioQuery vedioQuery=new VedioQuery(vedios,size.intValue());
 		 return vedioQuery;
 	}
 	

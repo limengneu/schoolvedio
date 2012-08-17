@@ -82,19 +82,19 @@ public abstract class BaseDao<T extends BaseModel> {
 		
 		Query query = em.createQuery("SELECT o FROM "
 				+ entityClass.getSimpleName() + " o WHERE o." + column + " =:"
-				+ column +"order by o.modifyAt desc");
+				+ column +"  order by o.modifyAt desc");
 		query.setParameter(column, value);
 		query.setFirstResult((page-1)*pageSize);
 		query.setMaxResults(pageSize);
 		return query.getResultList();
 	}
 	
-	public Integer countByPage(String column,  String value) {
+	public Long countByPage(String column,  String value) {
 		Query query = em.createQuery("SELECT count(o.id) FROM "
 				+ entityClass.getSimpleName() + " o WHERE o." + column + " =:"
 				+ column);
 		query.setParameter(column, value);
-		return (Integer) query.getSingleResult();
+		return (Long) query.getSingleResult();
 	}
 	
 	
