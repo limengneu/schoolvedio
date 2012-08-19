@@ -109,6 +109,7 @@ public class ThridVedioController {
 			realPath="open_"+realPath;
 			vedio.setRealPath(realPath);
 			vedio.setTitle(URLDecoder.decode(URLDecoder.decode(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_SUBJECT),"UTF-8"),"UTF-8"));
+			vedio.setSummary(URLDecoder.decode(URLDecoder.decode(obejctMap.get(VedioUploadConstans.RESULT_VEDIO_MSG),"UTF-8"),"UTF-8"));
 		} catch (UnsupportedEncodingException e) {
 			logger.error(e.getMessage(),e);
 		}

@@ -12,7 +12,6 @@
     <div class="thumbnail">
       <a href="/vedio/${vedio.id}"><img src="$vedio.image" width='200px' height='180px'></a>
       <h5>${vedio.title}</h5>
-      <p>${vedio.summary}</p>
     </div>
   </li>
 
