@@ -34,7 +34,9 @@ public class VedioServiceTest {
 	@Test
 	public void testURLdecode() throws Exception {
         String src="Upload, Fail! vid=0&amp;sid=home&amp;msg=%25E8%25AF%25B7%25E4%25B8%258D%25E8%25A6%2581%25E9%2587%258D%25E5%25A4%258D%25E4%25B8%258A%25E4%25BC%25A0%25E7%259B%25B8%25E5%2590%258C%25E8%25A7%2586%25E9%25A2%2591&amp;subject=";
-		System.out.println(URLDecoder.decode(URLDecoder.decode(src, "UTF-8"),"UTF-8"));
+		String str=URLDecoder.decode(URLDecoder.decode(src, "UTF-8"),"UTF-8");
+        System.out.println(str);
+		System.out.println(str.substring(str.indexOf("msg=")+4,str.indexOf("&amp;subject") ));
 	}
 
 }

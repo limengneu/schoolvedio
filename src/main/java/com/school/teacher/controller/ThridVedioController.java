@@ -123,15 +123,10 @@ public class ThridVedioController {
 	public ModelAndView fail(HttpServletRequest request, ModelAndView mav){
 		mav.setViewName("/vedio/fail");
 		String  requestParams = request.getQueryString();
-		String[] obejctStr=requestParams.split("&");
-		Map<String,String> obejctMap=new HashMap<String,String>();
-		for(int index=0;index<obejctStr.length;index++){
-		String[] restStr=obejctStr[index].split("=");
-		obejctMap.put(restStr[0], restStr[1]);
-		}
+
 		String message=null;
 		try {
-			message=URLDecoder.decode(URLDecoder.decode(obejctMap.get("msg"),"UTF-8"),"UTF-8");
+			message=URLDecoder.decode(URLDecoder.decode(requestParams,"UTF-8"),"UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			logger.error(e.getMessage(),e);
 		}
@@ -139,7 +134,7 @@ public class ThridVedioController {
 		Vedio vedio= new Vedio();
 		vedio.setStatus("f");
 		vedioService.saveVedio(vedio);
-		mav.addObject("queryString", message);
+		mav.addObject("queryString", StringUtils.substring(message, message.indexOf("msg=")+4, message.indexOf("&amp;subject")));
 		return mav;
 	}
 
