@@ -134,7 +134,7 @@ public class ThridVedioController {
 		Vedio vedio= new Vedio();
 		vedio.setStatus("f");
 		vedioService.saveVedio(vedio);
-		mav.addObject("queryString", StringUtils.substring(message, message.indexOf("msg=")+4, message.indexOf("&amp;subject")));
+		mav.addObject("queryString", StringUtils.substring(message, message.indexOf("msg=")+4, message.indexOf("&amp;subject")-8));
 		return mav;
 	}
 
