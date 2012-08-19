@@ -2,6 +2,7 @@
       <!-- Main hero unit for a primary marketing message or call to action -->
 	  <div class="hero-unit">
 		 
-        <h1>Upload, Fail! $queryString</h1>
+        <h2>Upload, Fail!</h2>
+        <h3>$queryString</h3>
       </div>
 </div>
