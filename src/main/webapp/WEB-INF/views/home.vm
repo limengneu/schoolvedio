@@ -10,7 +10,7 @@
 
   <li class="span3">
     <div class="thumbnail">
-      <a href="/vedio/${vedio.id}"><img src="$vedio.image" width='200px' height='180px'></a>
+      <a href="/vedio/${vedio.id}" target="_blank"><img src="$vedio.image" width='200px' height='180px'></a>
       <h5>${vedio.title}</h5>
     </div>
   </li>
